@@ -18,6 +18,7 @@ import {
 } from "react-native/Libraries/NewAppScreen";
 import React, { PropsWithChildren } from "react";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { useStores } from "../store";
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -56,6 +57,11 @@ type HomeScreenProps = PropsWithChildren<{
 
 function HomeScreen({ navigation }: HomeScreenProps) {
   const isDarkMode = useColorScheme() === "dark";
+  const { postsStore } = useStores();
+
+  React.useEffect(() => {
+    postsStore.fetchList();
+  }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter

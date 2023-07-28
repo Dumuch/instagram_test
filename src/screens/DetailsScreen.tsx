@@ -10,7 +10,7 @@ import {
   View
 } from "react-native";
 function DetailsScreen() {
-  return(<Text>dsfsdfds</Text>)
+  return(<Text>screen 2</Text>)
 }
 
 export default DetailsScreen;

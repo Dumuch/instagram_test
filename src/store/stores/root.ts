@@ -1,10 +1,10 @@
-import { PostsStore } from "./PostsStore";
+import { PhotosStore } from "./PhotosStore";
 
 export class RootStore {
-        postsStore: any;
+        photosStore: any;
 
     constructor() {
-        this.postsStore = new PostsStore(this);
+        this.photosStore = new PhotosStore(this);
 
         this.getApiUrl();
     }

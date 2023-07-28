@@ -1,16 +1,18 @@
 import { makeAutoObservable, runInAction } from "mobx";
+import container from "../../container/container";
 
-export class PostsStore {
+const api = container.apiClient;
+
+export class PhotosStore {
   list: any = {
     items: [],
     isLoading: false,
     isFetched: false,
-    count: 0,
   };
 
   item: any = {
     isLoading: false,
-    isFetched: false,
+    isFetched: false
   };
 
   rootStore: any;
@@ -24,22 +26,19 @@ export class PostsStore {
     return this.list.isLoading || this.item.isLoading;
   }
 
-  async fetchList() {
+  async fetchList(limit = 10) {
     if (this.isLoading) {
       return;
     }
-
     this.list.isLoading = true;
-
     try {
-      // const { data } = await api.propertyList();
+      const { data } = await api.photosList({ limit});
       runInAction(() => {
-        // this.list.items = data.rows;
-        // this.list.count = data.count;
+        this.list.items = data.photos;
         this.list.isFetched = true;
       });
-      // return data.rows;
     } catch (e) {
+
     } finally {
       runInAction(() => {
         this.list.isLoading = false;

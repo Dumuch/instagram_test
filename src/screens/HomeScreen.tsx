@@ -19,12 +19,14 @@ import {
 import React, { PropsWithChildren } from "react";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { useStores } from "../store";
+import { ScreensEnum } from "./Types";
+import { observer } from "mobx-react";
 
 type SectionProps = PropsWithChildren<{
   title: string;
 }>;
 
-function Section({ children, title }: SectionProps): JSX.Element {
+function Section({ children, title }: SectionProps): Element {
   const isDarkMode = useColorScheme() === "dark";
   return (
     <View style={styles.sectionContainer}>
@@ -55,28 +57,29 @@ type HomeScreenProps = PropsWithChildren<{
 }>;
 
 
-function HomeScreen({ navigation }: HomeScreenProps) {
+const HomeScreen = observer(({ navigation }: HomeScreenProps) => {
   const isDarkMode = useColorScheme() === "dark";
-  const { postsStore } = useStores();
+  const { photosStore } = useStores();
 
   React.useEffect(() => {
-    postsStore.fetchList();
+    photosStore.fetchList();
   }, []);
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter
   };
+  console.log(312, photosStore.list.items)
   return (
     <ScrollView>
 
       <Text>screen 1</Text>
       <Button
         title="Go to Details"
-        onPress={() => navigation.navigate("Details")}
+        onPress={() => navigation.navigate(ScreensEnum.details)}
       />
     </ScrollView>
   );
-}
+})
 
 const styles = StyleSheet.create({
   sectionContainer: {

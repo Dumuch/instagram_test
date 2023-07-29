@@ -6,6 +6,7 @@ import React, { PropsWithChildren } from "react";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import PhotoList from "../components/PhotoList";
+import PhotoListFilter from "../components/PhotoListFilter";
 
 type HomeScreenProps = PropsWithChildren<{
   navigation: NavigationProp<ParamListBase>;
@@ -20,6 +21,7 @@ const HomeScreen = observer(({ navigation }: HomeScreenProps) => {
         <Text>Change view </Text>
         <Switch value={!isOneColumnView} onChange={changeView} />
       </View>
+      <PhotoListFilter />
       <View style={styles.container}>
         <PhotoList column={isOneColumnView ? 1 : 2} navigation={navigation} />
       </View>

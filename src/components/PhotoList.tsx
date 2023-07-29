@@ -23,6 +23,7 @@ const PhotoList: React.FC<Props> = observer(({ navigation, column = 1 }) => {
   }, []);
 
   const handleLoadMore = () => {
+    if (photosStore.isApplyingFilter) return;
     const currentOffset = offset + 10;
     setOffset(currentOffset);
     photosStore.fetchList(10, currentOffset);
@@ -38,10 +39,10 @@ const PhotoList: React.FC<Props> = observer(({ navigation, column = 1 }) => {
     return (
       <TouchableOpacity
         onPress={openDetails}
-        style={{ width: `${100 / column }%`,
-          marginRight:  (index + 1) % column !== 0 ? 10 : 0,
-
-             }}>
+        style={{
+          width: `${100 / column}%`,
+          marginRight: (index + 1) % column !== 0 ? 10 : 0
+        }}>
 
         <Image uri={item.url} />
       </TouchableOpacity>
@@ -51,7 +52,7 @@ const PhotoList: React.FC<Props> = observer(({ navigation, column = 1 }) => {
   return (
     <FlatList
       style={styles.container}
-      data={photosStore.list.items}
+      data={photosStore.filteredList}
       renderItem={PhotoItem}
       keyExtractor={(item) => item.id.toString()}
       onEndReached={handleLoadMore}

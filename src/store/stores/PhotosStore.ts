@@ -1,6 +1,6 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import container from "../../container/container";
-import { Photo } from "../../models/Photo";
+import { Photo, PhotoListFilter } from "../../models/Photo";
 import { RootStore } from "./root";
 
 const api = container.apiClient;
@@ -17,6 +17,7 @@ interface Item {
   isFetched: boolean;
 }
 
+
 export class PhotosStore {
   list: List = {
     items: [],
@@ -29,6 +30,10 @@ export class PhotosStore {
     isFetched: false
   };
 
+  filter: PhotoListFilter = {
+    title: ""
+  };
+
   rootStore: any;
 
   constructor(rootStore: RootStore) {
@@ -38,6 +43,16 @@ export class PhotosStore {
 
   get isLoading() {
     return this.list.isLoading || this.item.isLoading;
+  }
+
+  get filteredList() {
+    return this.list.items.filter(item => {
+      return item.title.indexOf(this.filter.title) >= 0;
+    });
+  }
+
+  get isApplyingFilter() {
+    return !!this.filter.title
   }
 
   async fetchList(limit = 10, offset = 0) {
@@ -76,5 +91,11 @@ export class PhotosStore {
       this.item.item = findDetails;
     }
     this.list.isLoading = false;
+  }
+
+  applyFilter(params: PhotoListFilter) {
+    runInAction(() => {
+      this.filter = params;
+    });
   }
 }

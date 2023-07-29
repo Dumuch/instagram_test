@@ -1,10 +1,11 @@
-import { ActivityIndicator, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { ActivityIndicator, FlatList,  StyleSheet, TouchableOpacity, Text } from "react-native";
 import React from "react";
 import { useStores } from "../store";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { Photo } from "../models/Photo";
 import { ScreensEnum } from "../models/Screens";
 import { observer } from "mobx-react";
+import Image from "../UI/Image";
 
 interface Props {
   navigation: NavigationProp<ParamListBase>;
@@ -30,7 +31,10 @@ const PhotoList: React.FC<Props> = observer(({ navigation }) => {
       photosStore.getDetails(item.id);
       navigation.navigate(ScreensEnum.details)
     };
-    return <TouchableOpacity onPress={openDetails}><Image source={{ uri: item.url }} style={styles.image} resizeMode="cover" /></TouchableOpacity>;
+
+    return <TouchableOpacity onPress={openDetails}>
+      <Image uri={item.url} />
+    </TouchableOpacity>;
   };
 
   return (
@@ -46,11 +50,6 @@ const PhotoList: React.FC<Props> = observer(({ navigation }) => {
 });
 
 const styles = StyleSheet.create({
-  image: {
-    width: "100%",
-    height: 200,
-    marginBottom: 10
-  },
   activityIndicator: {
     marginTop: 20,
     marginBottom: 20

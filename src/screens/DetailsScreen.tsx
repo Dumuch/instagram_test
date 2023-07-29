@@ -7,9 +7,14 @@ import {
 } from "react-native";
 import ImageView from "react-native-image-viewing";
 import { useStores } from "../store";
-import React from "react";
+import React, { PropsWithChildren } from "react";
+import { NavigationProp, ParamListBase } from "@react-navigation/native";
+import { observer } from "mobx-react";
 
-function DetailsScreen() {
+type DetailsScreenProps = PropsWithChildren<{
+  navigation: NavigationProp<ParamListBase>;
+}>;
+const DetailsScreen = observer(({ navigation }: DetailsScreenProps) => {
   const { photosStore } = useStores();
   const details = photosStore.item.item;
   const [visible, setIsVisible] = React.useState(false);
@@ -30,7 +35,7 @@ function DetailsScreen() {
       />
     </View>
   );
-}
+})
 
 const styles = StyleSheet.create({
   container: {

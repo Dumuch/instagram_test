@@ -1,27 +1,35 @@
 import {
-  Button, Image,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
+  Image,
   StyleSheet,
   Text,
-  TextStyle,
-  useColorScheme,
+  TouchableOpacity,
   View
 } from "react-native";
+import ImageView from "react-native-image-viewing";
 import { useStores } from "../store";
 import React from "react";
+
 function DetailsScreen() {
   const { photosStore } = useStores();
   const details = photosStore.item.item;
-  console.log(photosStore.item.item);
-  return(
+  const [visible, setIsVisible] = React.useState(false);
+  const openPhoto = () => setIsVisible(prevState => !prevState);
+
+  return (
     <View style={styles.container}>
-      <Image source={{ uri: details?.url }} style={styles.image} resizeMode="cover" />
+      <TouchableOpacity onPress={openPhoto}>
+        <Image source={{ uri: details?.url }} style={styles.image} resizeMode="cover" />
+      </TouchableOpacity>
       <Text style={styles.sectionTitle}>{details?.title}</Text>
       <Text style={styles.sectionDescription}>{details?.description}</Text>
+      <ImageView
+        images={[{ uri: details?.url }!]}
+        imageIndex={0}
+        visible={visible}
+        onRequestClose={() => setIsVisible(false)}
+      />
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -47,7 +55,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     marginBottom: 10
-  },
+  }
 });
 
 export default DetailsScreen;

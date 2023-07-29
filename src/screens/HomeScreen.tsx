@@ -6,8 +6,7 @@ import {
 import React, { PropsWithChildren } from "react";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
 import { observer } from "mobx-react";
-import PhotosList from "../components/PhotosList";
-import { useStores } from "../store";
+import PhotoList from "../components/PhotoList";
 
 type HomeScreenProps = PropsWithChildren<{
   navigation: NavigationProp<ParamListBase>;
@@ -17,7 +16,7 @@ const HomeScreen = observer(({ navigation }: HomeScreenProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.container}>
-        <PhotosList navigation={navigation} />
+        <PhotoList navigation={navigation} />
       </View>
     </View>
   );

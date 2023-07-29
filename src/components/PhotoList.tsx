@@ -10,7 +10,7 @@ interface Props {
   navigation: NavigationProp<ParamListBase>;
 }
 
-const PhotosList: React.FC<Props> = observer(({ navigation }) => {
+const PhotoList: React.FC<Props> = observer(({ navigation }) => {
   const [offset, setOffset] = React.useState(0);
   const { photosStore } = useStores();
 
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PhotosList;
+export default PhotoList;

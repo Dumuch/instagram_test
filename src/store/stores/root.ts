@@ -1,7 +1,7 @@
 import { PhotosStore } from "./PhotosStore";
 
 export class RootStore {
-        photosStore: any;
+        photosStore: PhotosStore;
 
     constructor() {
         this.photosStore = new PhotosStore(this);

@@ -2,7 +2,7 @@ import HomeScreen from "./HomeScreen";
 import DetailsScreen from "./DetailsScreen";
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { ScreensEnum, ScreensEnumUI } from "./Types";
+import { ScreensEnum, ScreensEnumUI } from "../models/Screens";
 const Stack = createNativeStackNavigator();
 
 function Screens() {

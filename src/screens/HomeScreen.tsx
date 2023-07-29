@@ -5,22 +5,17 @@ import {
 } from "react-native";
 import React, { PropsWithChildren } from "react";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
-import { useStores } from "../store";
 import { observer } from "mobx-react";
 import PhotosList from "../components/PhotosList";
+import { useStores } from "../store";
 
 type HomeScreenProps = PropsWithChildren<{
   navigation: NavigationProp<ParamListBase>;
 }>;
 
 const HomeScreen = observer(({ navigation }: HomeScreenProps) => {
-
   return (
     <View style={styles.container}>
-      <View style={styles.sectionContainer}>
-        <Text style={styles.sectionTitle}>screen 1</Text>
-      </View>
-
       <View style={styles.container}>
         <PhotosList navigation={navigation} />
       </View>

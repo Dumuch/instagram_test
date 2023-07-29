@@ -1,4 +1,4 @@
-import { FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
+import { ActivityIndicator, FlatList, Image, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { useStores } from "../store";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
@@ -40,7 +40,7 @@ const PhotosList: React.FC<Props> = observer(({ navigation }) => {
       keyExtractor={(item) => item.id.toString()}
       onEndReached={handleLoadMore}
       onEndReachedThreshold={0.1}
-      ListFooterComponent={null}
+      ListFooterComponent={photosStore.isLoading ? <ActivityIndicator size="large" style={styles.activityIndicator} /> : null}
     />
   );
 });
@@ -50,6 +50,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 200,
     marginBottom: 10
+  },
+  activityIndicator: {
+    marginTop: 20,
+    marginBottom: 20
   }
 });
 

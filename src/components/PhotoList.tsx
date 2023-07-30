@@ -17,16 +17,16 @@ interface Props {
 const PhotoList: React.FC<Props> = observer(({ navigation, column = 1 }) => {
   const [offset, setOffset] = React.useState(0);
   const { photosStore } = useStores();
-
+  const isErrorRef = React.useRef(false);
   React.useEffect(() => {
     photosStore.fetchList();
   }, []);
 
   const handleLoadMore = () => {
-    if (photosStore.isApplyingFilter) return;
+    if (photosStore.isApplyingFilter || isErrorRef.current) return;
     const currentOffset = offset + 10;
     setOffset(currentOffset);
-    photosStore.fetchList(10, currentOffset);
+    photosStore.fetchList(10, currentOffset).catch((e) => isErrorRef.current = true);
   };
 
 

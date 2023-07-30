@@ -2,8 +2,10 @@ import { makeAutoObservable, runInAction } from "mobx";
 import container from "../../container/container";
 import { Photo, PhotoListFilter } from "../../models/Photo";
 import { RootStore } from "./root";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const api = container.apiClient;
+const PHOTOS_STORAGE_KEY = "photo-list";
 
 interface List {
   items: Photo[];
@@ -34,7 +36,7 @@ export class PhotosStore {
     title: ""
   };
 
-  rootStore: any;
+  rootStore: RootStore;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -47,12 +49,13 @@ export class PhotosStore {
 
   get filteredList() {
     return this.list.items.filter(item => {
-      return item.title.indexOf(this.filter.title) >= 0;
+      const textMatches = !this.filter.title || item.title.includes(this.filter.title);
+      return textMatches;
     });
   }
 
   get isApplyingFilter() {
-    return !!this.filter.title
+    return !!this.filter.title;
   }
 
   async fetchList(limit = 10, offset = 0) {
@@ -70,8 +73,16 @@ export class PhotosStore {
         }
         this.list.isFetched = true;
       });
+      await AsyncStorage.setItem(PHOTOS_STORAGE_KEY, JSON.stringify(this.list.items));
     } catch (e) {
-
+      const jsonValue = await AsyncStorage.getItem(PHOTOS_STORAGE_KEY);
+      if (jsonValue) {
+        runInAction(() => {
+          this.list.items = JSON.parse(jsonValue);
+          this.list.isFetched = true;
+        });
+      }
+      throw new Error();
     } finally {
       runInAction(() => {
         this.list.isLoading = false;

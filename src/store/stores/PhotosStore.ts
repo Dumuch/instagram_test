@@ -50,7 +50,7 @@ export class PhotosStore {
 
   get filteredList() {
     return this.list.items.filter(item => {
-      const textMatches = !this.filter.title || item.title.includes(this.filter.title);
+      const textMatches = !this.filter.title || item.title.toLowerCase().includes(this.filter.title.toLowerCase());
       return textMatches;
     });
   }
@@ -83,7 +83,7 @@ export class PhotosStore {
           this.list.isFetched = true;
         });
       }
-  
+
       const err = e as AxiosError;
       throw new Error(err.message);
     } finally {

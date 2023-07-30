@@ -1,8 +1,9 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import container from "../../container/container";
-import { Photo, PhotoListFilter } from "../../models/Photo";
+import { Photo, PhotoListFilter, PhotosAPI } from "../../models/Photo";
 import { RootStore } from "./root";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { AxiosError } from "axios";
 
 const api = container.apiClient;
 const PHOTOS_STORAGE_KEY = "photo-list";
@@ -82,7 +83,9 @@ export class PhotosStore {
           this.list.isFetched = true;
         });
       }
-      throw new Error();
+  
+      const err = e as AxiosError;
+      throw new Error(err.message);
     } finally {
       runInAction(() => {
         this.list.isLoading = false;

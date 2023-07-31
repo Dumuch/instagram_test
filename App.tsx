@@ -6,7 +6,7 @@ import Screens from "./src/screens";
 
 const rootStore = new RootStore();
 
-function App(): Element {
+function App(): JSX.Element {
   return (
     <StoreProvider store={rootStore}>
       <NavigationContainer>

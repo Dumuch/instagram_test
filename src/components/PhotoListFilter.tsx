@@ -1,5 +1,5 @@
 import {
-  View, TextInput, StyleSheet, NativeSyntheticEvent, TextInputTextInputEventData
+  View, TextInput, StyleSheet
 } from "react-native";
 import React from "react";
 import { useStores } from "../store";

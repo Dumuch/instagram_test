@@ -1,4 +1,4 @@
-import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { useStores } from "../store";
 import { NavigationProp, ParamListBase } from "@react-navigation/native";
@@ -6,8 +6,6 @@ import { Photo } from "../models/Photo";
 import { ScreensEnum } from "../models/Screens";
 import { observer } from "mobx-react";
 import Image from "../UI/Image";
-import { StyleProp } from "react-native/Libraries/StyleSheet/StyleSheet";
-import { ViewStyle } from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 interface Props {
   navigation: NavigationProp<ParamListBase>;

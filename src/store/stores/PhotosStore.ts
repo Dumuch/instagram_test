@@ -1,8 +1,7 @@
 import { makeAutoObservable, runInAction } from "mobx";
 import container from "../../container/container";
-import { Photo, PhotoListFilter, PhotosAPI } from "../../models/Photo";
+import { Photo, PhotoListFilter } from "../../models/Photo";
 import { RootStore } from "./root";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosError } from "axios";
 import { getStorage, setStorage } from "../../utils/asyncStorage";
 

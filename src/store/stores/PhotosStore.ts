@@ -20,7 +20,6 @@ interface Item {
   isFetched: boolean;
 }
 
-
 export class PhotosStore {
   list: List = {
     items: [],

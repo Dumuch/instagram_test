@@ -1,5 +1,5 @@
 import React from "react";
-import { Image as ImageNative, StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { Image as ImageNative, StyleSheet, View, ActivityIndicator } from "react-native";
 
 interface Props {
   uri: string;
@@ -13,8 +13,8 @@ const Image: React.FC<Props> = ({ uri }) => {
 
   return (
     <View>
-      {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} />}
-      <ImageNative onLoad={handleImageLoaded} source={{ uri }} style={styles.image} resizeMode="cover" />
+      {isLoading && <ActivityIndicator size="large" style={styles.activityIndicator} testID="activity-indicator" />}
+      <ImageNative onLoad={handleImageLoaded} source={{ uri }} style={styles.image} resizeMode="cover" testID="image-native" />
     </View>
   );
 };

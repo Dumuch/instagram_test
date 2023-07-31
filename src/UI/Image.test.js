@@ -33,6 +33,13 @@ describe("Image component", () => {
     expect(imageNative.props.source.uri).toBe(TEST_URI);
     expect(imageNative.props.style).toEqual(expect.objectContaining(styles.image));
   });
+
+  it("should render activityIndicator with correct uri and style", () => {
+    const { getByTestId } = render(<Image uri={TEST_URI} />);
+    const imageNative = getByTestId("activity-indicator");
+
+    expect(imageNative.props.style).toEqual(expect.objectContaining(styles.activityIndicator));
+  });
 });
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import { Photo, PhotoListFilter, PhotosAPI } from "../../models/Photo";
 import { RootStore } from "./root";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { AxiosError } from "axios";
+import { getStorage, setStorage } from "../../utils/asyncStorage";
 
 const api = container.apiClient;
 const PHOTOS_STORAGE_KEY = "photo-list";
@@ -74,12 +75,12 @@ export class PhotosStore {
         }
         this.list.isFetched = true;
       });
-      await AsyncStorage.setItem(PHOTOS_STORAGE_KEY, JSON.stringify(this.list.items));
+      await setStorage(PHOTOS_STORAGE_KEY, this.list.items);
     } catch (e) {
-      const jsonValue = await AsyncStorage.getItem(PHOTOS_STORAGE_KEY);
-      if (jsonValue) {
+      const photoList = await getStorage(PHOTOS_STORAGE_KEY);
+      if (photoList) {
         runInAction(() => {
-          this.list.items = JSON.parse(jsonValue);
+          this.list.items = photoList as Photo[];
           this.list.isFetched = true;
         });
       }

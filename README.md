@@ -1,4 +1,4 @@
-Тестовый проект на React Native, TS, MobX
+Приложение на React Native, TS, MobX
 
 # Getting Started
 
